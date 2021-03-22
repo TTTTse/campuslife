@@ -19,6 +19,12 @@
             <groupId>com.graduationproject</groupId>
             <artifactId>campuslife-dao</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.53</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>
