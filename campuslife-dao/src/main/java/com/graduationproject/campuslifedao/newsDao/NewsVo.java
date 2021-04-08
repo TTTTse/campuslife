@@ -1,6 +1,12 @@
 package com.graduationproject.campuslifedao.newsDao;
 
+import lombok.*;
+
+import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: campuslife
@@ -9,13 +15,25 @@ import java.util.Date;
  * @create: 2021-03-17 01:01
  **/
 
-public class NewsVo {
+@Setter
+@Getter
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+public class NewsVo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    String id;
+    private int id;
 
-    String picUrl;
+    private String picUrl;
 
-    Date ctime;
+    private String ctime;
 
-    String title;
+    private String title;
+
+    private String source;
+
+    private List content;
+
 }

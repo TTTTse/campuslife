@@ -1,0 +1,8 @@
+tencent:
+  cos:
+    app-id: 1304585268
+    secret-id: AKIDryqSs2nPULJJ3XQqirKp0vc0JYDCZoKf
+    secret-key: aJn1m9i6ESYQrCSs612D9yWld6Mguun5
+    bucket-name: ttttse-1304585268
+    region-id: ap-guangzhou
+    base-url: https://ttttse-1304585268.cos.ap-guangzhou.myqcloud.com

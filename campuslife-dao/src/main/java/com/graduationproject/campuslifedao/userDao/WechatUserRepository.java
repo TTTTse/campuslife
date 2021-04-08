@@ -15,6 +15,6 @@ public interface WechatUserRepository extends JpaRepository<WechatUser,Integer> 
 
     @Transactional
     @Modifying
-    @Query(value = "update we_chat_user set session_key =: sessionKey where open_id := openId", nativeQuery = true)
+    @Query(value = "update we_chat_user set session_key = sessionKey where open_id = openId", nativeQuery = true)
     int updateByOpenID(String openId, String sessionKey);
 }

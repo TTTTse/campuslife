@@ -1,15 +1,16 @@
 package com.graduationproject.campuslifeweb.wechatUser.Controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.graduationproject.campuslifecommon.constant.AESUtils;
 import com.graduationproject.campuslifecommon.constant.HttpRequest;
 import com.graduationproject.campuslifecommon.response.ResponseResult;
 import com.graduationproject.campuslifedao.userDao.WechatUser;
-import com.graduationproject.campuslifedao.userDao.WechatUserVo;
 import com.graduationproject.campuslifeservice.wechatUser.WechatUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.LinkedHashMap;
 
 /**
@@ -28,7 +29,6 @@ public class WechatUserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public ResponseResult login(@RequestBody JSONObject userInfo) {
-        System.out.println(userInfo);
         LinkedHashMap user = (LinkedHashMap) userInfo.get("userInfo");
         String code = (String) user.get("code");
         if (null == code || code.length() == 0) {
@@ -50,6 +50,9 @@ public class WechatUserController {
             wechatUserService.updateByOpenId(openid, session_key);
             return ResponseResult.builder().code(20000L).build();
         }
+        if (wechatUserService.findByOpenId(openid) != null) {
+            return ResponseResult.builder().data(wechatUserService.findByOpenId(openid)).code(20000L).build();
+        }
         wechatUser.setOpenId(openid);
         wechatUser.setSessionKey(session_key);
         wechatUser.setGender((Integer) user.get("gender"));
@@ -60,22 +63,10 @@ public class WechatUserController {
         wechatUser.setCity((String) user.get("city"));
         wechatUser.setNickName((String) user.get("nickName"));
         wechatUserService.save(wechatUser);
-        return ResponseResult.builder().data(openid).code(20000L).build();
+        return ResponseResult.builder().data(wechatUser).code(20000L).build();
     }
 
-//    @RequestMapping(value = "save", method = RequestMethod.POST)
-//    public ResponseResult save(@RequestBody HashMap<String, String>  user) {
-//        WechatUser wechatUser = new WechatUser();
-//        wechatUser.setNickName(user.get("nickName"));
-//        wechatUser.setLanguage(user.get("language"));
-//        wechatUser.setCity(user.get("city"));
-//        wechatUser.setAvatarUrl(user.get("avatarUrl"));
-//        wechatUser.setCountry(user.get("country"));
-//        wechatUser.setProvince(user.get("province"));
-//        wechatUser.setGender(user.get("gender"));
-//        wechatUserService.save(wechatUser);
-//        System.out.println(user);
-//        return ResponseResult.builder().data("保存成功").build();
-//    }
-
+    public ResponseResult findUser(@RequestBody JSONObject userInfo){
+        return null;
+    }
 }
